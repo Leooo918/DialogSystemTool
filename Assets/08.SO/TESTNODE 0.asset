@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 030378e15185f7041a92926a73b061f1, type: 3}
+  m_Name: TESTNODE 0
+  m_EditorClassIdentifier: 
+  guid: 
+  position: {x: 0, y: 0}
+  reader: NPC
+  useForInGame: 1
+  useImage: 0
+  useBackground: 0
+  images: []
+  background: {fileID: 0}
+  contents: "<Todown=50><Shake=2>\uC6B0\uD788\uD79B</Shake><Wait=1> \uD5E4\uD5E4\uD5F7"
+  nextNode: {fileID: 11400000, guid: d50f063e2f23b8f4f922882e2ee9ff08, type: 2}
