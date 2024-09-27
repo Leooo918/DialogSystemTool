@@ -1,5 +1,47 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8599760442170300867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23aee5184e8159f4e9ee55e8ab227ed5, type: 3}
+  m_Name: BranchNodeSO
+  m_EditorClassIdentifier: 
+  guid: 23d3b7c72005c1a449be5a809647cb36
+  position: {x: 1085.5, y: -38.5}
+  condition: {fileID: 11400000, guid: 4766e6aada002104eb7bcf8687eb23d3, type: 2}
+  nextNodes:
+  - {fileID: 8651857697121726848}
+  - {fileID: 5032428922804392202}
+  - {fileID: 8651857697121726848}
+  - {fileID: 5032428922804392202}
+--- !u!114 &-7512367231611484353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 030378e15185f7041a92926a73b061f1, type: 3}
+  m_Name: NormalNodeSO
+  m_EditorClassIdentifier: 
+  guid: af921a43366a7e9489234a5fbbd28b39
+  position: {x: -427.99432, y: 116.49997}
+  reader: NPC
+  contents: "<Todown=50><Shake=2>\uB300\uBA38\uB9AC</Shake><Wait=1> \uB3C5\uC218\uB9AC"
+  useForVisualNovel: 0
+  useImage: 0
+  useBackground: 0
+  images: []
+  background: {fileID: 0}
+  nextNode: {fileID: 3240625074011202967}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13,5 +55,144 @@ MonoBehaviour:
   m_Name: TESTDIALOG
   m_EditorClassIdentifier: 
   nodes:
-  - {fileID: 11400000, guid: 31f2432087db8a148bc3edeb55adc4c2, type: 2}
-  - {fileID: 11400000, guid: d50f063e2f23b8f4f922882e2ee9ff08, type: 2}
+  - {fileID: -7512367231611484353}
+  - {fileID: 3240625074011202967}
+  - {fileID: 5899601524521197398}
+  - {fileID: 8651857697121726848}
+  - {fileID: 1665658002779521040}
+  - {fileID: 5032428922804392202}
+  - {fileID: 1644010294963340538}
+  - {fileID: -8599760442170300867}
+--- !u!114 &1644010294963340538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 030378e15185f7041a92926a73b061f1, type: 3}
+  m_Name: NormalNodeSO
+  m_EditorClassIdentifier: 
+  guid: c35e182b7ecde9448abcd4509e9cbf81
+  position: {x: 1106.5, y: 242.5}
+  reader: SUNHAN
+  contents: "\uC18C\uC6A9 \uC5C6\uB2E4 \uB10C <Shake=3>\uC8FD\uC74C</Shake>\uC774\uB2E4!"
+  useForVisualNovel: 0
+  useImage: 0
+  useBackground: 0
+  images: []
+  background: {fileID: 0}
+  nextNode: {fileID: 0}
+--- !u!114 &1665658002779521040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 030378e15185f7041a92926a73b061f1, type: 3}
+  m_Name: NormalNodeSO
+  m_EditorClassIdentifier: 
+  guid: f28565c72c3adb44aa6d01f9e5e2e938
+  position: {x: 796.94385, y: -16.401688}
+  reader: SUNHAN
+  contents: "\uAC94\uAC94\uAC94 \uB10C \uC774\uC81C <Shake=5><color=red>\uC8FD\uC74C</color></Shake>\uC774\uB2E4"
+  useForVisualNovel: 0
+  useImage: 0
+  useBackground: 0
+  images: []
+  background: {fileID: 0}
+  nextNode: {fileID: -8599760442170300867}
+--- !u!114 &3240625074011202967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 030378e15185f7041a92926a73b061f1, type: 3}
+  m_Name: NormalNodeSO
+  m_EditorClassIdentifier: 
+  guid: 693ccf1e170f6e04ba799f65ee8d5817
+  position: {x: -95.50001, y: 116.499954}
+  reader: NPC
+  contents: "<Fromup>\uC120\uD55C\uC324 \uC0AC\uB791\uD574\uC694\u2665"
+  useForVisualNovel: 0
+  useImage: 0
+  useBackground: 0
+  images: []
+  background: {fileID: 0}
+  nextNode: {fileID: 5899601524521197398}
+--- !u!114 &5032428922804392202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 030378e15185f7041a92926a73b061f1, type: 3}
+  m_Name: NormalNodeSO
+  m_EditorClassIdentifier: 
+  guid: 008523dc1f03143478943f51c21295e0
+  position: {x: 797, y: 242.5}
+  reader: NPC
+  contents: "(\uBD88\uD310 \uB3C4\uAC1C\uC790\uB97C \uD588\uB2E4)"
+  useForVisualNovel: 0
+  useImage: 0
+  useBackground: 0
+  images: []
+  background: {fileID: 0}
+  nextNode: {fileID: 1644010294963340538}
+--- !u!114 &5899601524521197398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 030378e15185f7041a92926a73b061f1, type: 3}
+  m_Name: NormalNodeSO
+  m_EditorClassIdentifier: 
+  guid: b2c6c3106e61184468988e56204f3049
+  position: {x: 212.00005, y: 116.50001}
+  reader: SUNHAN
+  contents: "\uC0B0\uD559\uD611\uB825 <Shake=4><color=red>\uAC10\uC810</color></Shake>
+    \uB123\uACA0\uC2B5\uB2C8\uB2E4"
+  useForVisualNovel: 0
+  useImage: 0
+  useBackground: 0
+  images: []
+  background: {fileID: 0}
+  nextNode: {fileID: 8651857697121726848}
+--- !u!114 &8651857697121726848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cf12593a4a5d8247bdea87308ca2eb6, type: 3}
+  m_Name: OptionNodeSO
+  m_EditorClassIdentifier: 
+  guid: b702918e7be81314bbb8a3c406d306b3
+  position: {x: 489.37408, y: 116.50001}
+  options:
+  - option: "(\uBC1B\uC544\uB4E4\uC778\uB2E4......)"
+    optionTxt: "(\uBC1B\uC544\uB4E4\uC778\uB2E4......)"
+    nextNode: {fileID: 1665658002779521040}
+  - option: "\uB3C4\uAC1C\uC790\uB97C \uD55C\uB2E4."
+    optionTxt: "\uB3C4\uAC1C\uC790\uB97C \uD55C\uB2E4."
+    nextNode: {fileID: 5032428922804392202}
+  optionPf: {fileID: -2199068703474868929, guid: f96be568de8eb164d8af3c30b3c615e7, type: 3}
