@@ -13,13 +13,11 @@ MonoBehaviour:
   m_Name: BranchNodeSO
   m_EditorClassIdentifier: 
   guid: 23d3b7c72005c1a449be5a809647cb36
-  position: {x: 1085.5, y: -38.5}
-  condition: {fileID: 11400000, guid: 4766e6aada002104eb7bcf8687eb23d3, type: 2}
+  position: {x: 1321.9998, y: -173.49991}
+  condition: {fileID: 11400000, guid: 6b4a3d177b221fa4c89e7a050c863b1b, type: 2}
   nextNodes:
-  - {fileID: 8651857697121726848}
   - {fileID: 5032428922804392202}
   - {fileID: 8651857697121726848}
-  - {fileID: 5032428922804392202}
 --- !u!114 &-7512367231611484353
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33,7 +31,7 @@ MonoBehaviour:
   m_Name: NormalNodeSO
   m_EditorClassIdentifier: 
   guid: af921a43366a7e9489234a5fbbd28b39
-  position: {x: -427.99432, y: 116.49997}
+  position: {x: -152.72171, y: -37.409138}
   reader: NPC
   contents: "<Todown=50><Shake=2>\uB300\uBA38\uB9AC</Shake><Wait=1> \uB3C5\uC218\uB9AC"
   useForVisualNovel: 0
@@ -76,7 +74,7 @@ MonoBehaviour:
   m_Name: NormalNodeSO
   m_EditorClassIdentifier: 
   guid: c35e182b7ecde9448abcd4509e9cbf81
-  position: {x: 1106.5, y: 242.5}
+  position: {x: 1321.7782, y: 88.590866}
   reader: SUNHAN
   contents: "\uC18C\uC6A9 \uC5C6\uB2E4 \uB10C <Shake=3>\uC8FD\uC74C</Shake>\uC774\uB2E4!"
   useForVisualNovel: 0
@@ -98,7 +96,7 @@ MonoBehaviour:
   m_Name: NormalNodeSO
   m_EditorClassIdentifier: 
   guid: f28565c72c3adb44aa6d01f9e5e2e938
-  position: {x: 796.94385, y: -16.401688}
+  position: {x: 1012.2782, y: -173.40915}
   reader: SUNHAN
   contents: "\uAC94\uAC94\uAC94 \uB10C \uC774\uC81C <Shake=5><color=red>\uC8FD\uC74C</color></Shake>\uC774\uB2E4"
   useForVisualNovel: 0
@@ -120,7 +118,7 @@ MonoBehaviour:
   m_Name: NormalNodeSO
   m_EditorClassIdentifier: 
   guid: 693ccf1e170f6e04ba799f65ee8d5817
-  position: {x: -95.50001, y: 116.499954}
+  position: {x: 120.8745, y: -37.499966}
   reader: NPC
   contents: "<Fromup>\uC120\uD55C\uC324 \uC0AC\uB791\uD574\uC694\u2665"
   useForVisualNovel: 0
@@ -142,7 +140,7 @@ MonoBehaviour:
   m_Name: NormalNodeSO
   m_EditorClassIdentifier: 
   guid: 008523dc1f03143478943f51c21295e0
-  position: {x: 797, y: 242.5}
+  position: {x: 1012.2782, y: 88.590866}
   reader: NPC
   contents: "(\uBD88\uD310 \uB3C4\uAC1C\uC790\uB97C \uD588\uB2E4)"
   useForVisualNovel: 0
@@ -164,7 +162,7 @@ MonoBehaviour:
   m_Name: NormalNodeSO
   m_EditorClassIdentifier: 
   guid: b2c6c3106e61184468988e56204f3049
-  position: {x: 212.00005, y: 116.50001}
+  position: {x: 404.82306, y: -37.500027}
   reader: SUNHAN
   contents: "\uC0B0\uD559\uD611\uB825 <Shake=4><color=red>\uAC10\uC810</color></Shake>
     \uB123\uACA0\uC2B5\uB2C8\uB2E4"
@@ -187,7 +185,7 @@ MonoBehaviour:
   m_Name: OptionNodeSO
   m_EditorClassIdentifier: 
   guid: b702918e7be81314bbb8a3c406d306b3
-  position: {x: 489.37408, y: 116.50001}
+  position: {x: 705.77826, y: -37.409138}
   options:
   - option: "(\uBC1B\uC544\uB4E4\uC778\uB2E4......)"
     optionTxt: "(\uBC1B\uC544\uB4E4\uC778\uB2E4......)"

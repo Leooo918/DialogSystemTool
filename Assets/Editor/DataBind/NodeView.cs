@@ -1,11 +1,12 @@
+#if UNITY_EDITOR
+
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
-using UnityEditor;
 using UnityEngine;
+using Dialog;
 
-namespace Dialog
+namespace Dialog.Editor
 {
     public class NodeView : Node
     {
@@ -53,16 +54,23 @@ namespace Dialog
             {
                 if (branch.condition == null) return;
 
-                for (int i = 0; i < branch.condition.GetBranchCount(); i++)
-                {
-                    Port o = InstantiatePort(Orientation.Horizontal, Direction.Output, Port.Capacity.Single, typeof(bool));
+                Port tOutput = InstantiatePort(Orientation.Horizontal, Direction.Output, Port.Capacity.Single, typeof(bool));
 
-                    if (o != null)
-                    {
-                        o.portName = $"{i}";
-                        outputs.Add(o);
-                        outputContainer.Add(o);
-                    }
+                if (tOutput != null)
+                {
+                    tOutput.portName = "True";
+                    outputs.Add(tOutput);
+                    outputContainer.Add(tOutput);
+                }
+
+
+                Port fOutput = InstantiatePort(Orientation.Horizontal, Direction.Output, Port.Capacity.Single, typeof(bool));
+
+                if (fOutput != null)
+                {
+                    fOutput.portName = "False";
+                    outputs.Add(fOutput);
+                    outputContainer.Add(fOutput);
                 }
             }
 
@@ -99,4 +107,7 @@ namespace Dialog
             OnNodeSelected?.Invoke(this);
         }
     }
+
 }
+
+#endif

@@ -1,9 +1,12 @@
+
+#if UNITY_EDITOR
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using Dialog;
 
-namespace Dialog
+namespace Dialog.Editor
 {
     [CustomEditor(typeof(NormalNodeSO))]
     public class NormalNodeEditor : Editor
@@ -98,3 +101,5 @@ namespace Dialog
         }
     }
 }
+
+#endif

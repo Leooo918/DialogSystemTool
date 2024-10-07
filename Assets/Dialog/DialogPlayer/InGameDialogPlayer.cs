@@ -80,10 +80,13 @@ namespace Dialog
         /// </summary>
         public override void ReadSingleLine()
         {
-            if(_curReadingNode == null)
+            if (_curReadingNode == null)
             {
                 EndDialog();
+                return;
             }
+
+            DialogConditionManager.Instance.AddValue(_curReadingNode.guid);
 
             if (_curReadingNode is NormalNodeSO node)
             {
@@ -98,11 +101,11 @@ namespace Dialog
                 });
                 _readingNodeRoutine = StartCoroutine(ReadingNormalNodeRoutine(node));
             }
-            else if(_curReadingNode is OptionNodeSO option)
+            else if (_curReadingNode is OptionNodeSO option)
             {
                 ReadingOptionNodeRoutine(option);
             }
-            else if(_curReadingNode is BranchNodeSO branch)
+            else if (_curReadingNode is BranchNodeSO branch)
             {
                 JudgementCondition(branch);
             }
@@ -228,8 +231,8 @@ namespace Dialog
 
         private void JudgementCondition(BranchNodeSO branch)
         {
-            int decision = branch.condition.Decision();
-            _curReadingNode = branch.nextNodes[decision];
+            bool decision = branch.condition.Decision();
+            _curReadingNode = branch.nextNodes[decision ? 0 : 1];
             ReadSingleLine();
         }
 

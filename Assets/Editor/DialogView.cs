@@ -1,12 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Dialog;
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace Dialog
+namespace Dialog.Editor
 {
     public class DialogView : GraphView
     {
@@ -15,6 +17,8 @@ namespace Dialog
 
         public Action<NodeView> OnNodeSelected;
         private DialogSO _dialog;
+
+        public DialogSO Dialog => _dialog;
 
         public DialogView()
         {
@@ -34,6 +38,7 @@ namespace Dialog
             DeleteElements(graphElements);  //자기가 가지고 있는 모든 엘리멘트 삭제
             graphViewChanged += OnGraphViewChanged;
 
+
             _dialog.nodes.ForEach(node =>
             {
                 CreateNodeView(node);
@@ -42,7 +47,7 @@ namespace Dialog
                     //여기서 Option에 다시 그리는걸 구독해줘
                     option.OnOptionChange = Refresh;
                 }
-                if(node is BranchNodeSO branch)
+                if (node is BranchNodeSO branch)
                 {
                     branch.onChangeCondition = Refresh;
                 }
@@ -63,6 +68,7 @@ namespace Dialog
 
                         if (parent.output == null)
                         {
+                            Debug.Log(index);
                             Edge edge = parent.outputs[index].ConnectTo(childNV.input);
                             AddElement(edge);
                         }
@@ -124,7 +130,7 @@ namespace Dialog
 
                     if (parent.nodeSO is OptionNodeSO || parent.nodeSO is BranchNodeSO)
                     {
-                        for(int i = 0; i < parent.outputs.Count; i++)
+                        for (int i = 0; i < parent.outputs.Count; i++)
                         {
                             if (parent.outputs[i] == elem.output)
                             {
@@ -177,4 +183,7 @@ namespace Dialog
             CreateNodeView(node);
         }
     }
+
 }
+
+#endif

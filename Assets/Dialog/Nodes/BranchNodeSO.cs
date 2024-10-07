@@ -20,13 +20,6 @@ namespace Dialog
 
         private void OnValidate()
         {
-            for (int i = nextNodes.Count; i < condition.GetBranchCount(); i++)
-                nextNodes.Add(null);
-
-            for (int i = 0; i < nextNodes.Count - condition.GetBranchCount(); i++)
-                nextNodes.RemoveAt(nextNodes.Count - 1);
-
-            //nextNodes = new List<NodeSO>(condition.GetBranchCount());
             onChangeCondition?.Invoke();
         }
     }

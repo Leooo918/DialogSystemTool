@@ -1,9 +1,7 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace Dialog
 {
@@ -12,8 +10,8 @@ namespace Dialog
     {
         public List<NodeSO> nodes;
 
-        #region ForEditor
 
+#if UNITY_EDITOR
         public NodeSO CreateNode(Type type)
         {
             NodeSO node = ScriptableObject.CreateInstance(type) as NodeSO;
@@ -71,7 +69,7 @@ namespace Dialog
 
             if (parent is BranchNodeSO branch)
             {
-                branch.nextNodes.RemoveAt(index);
+                branch.nextNodes[index] = null;
                 return;
             }
         }
@@ -91,7 +89,6 @@ namespace Dialog
 
             return children;
         }
-
-        #endregion
+#endif
     }
 }

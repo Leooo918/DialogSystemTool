@@ -7,24 +7,9 @@ namespace Dialog
     [CreateAssetMenu(menuName = "SO/Condition/CoinCondition")]
     public class CoinCondition : ConditionSO
     {
-        public List<int> coinLess = new List<int>();
+        [Header("더 적으면 False, 더 많거나 같으면 True")]
+        public int coinLess;
 
-        //일단 디버그용 나중에는 다른 곳에서 가져올 수 있도록 해야함
-        private int coin = 10;
-
-        public override int Decision()
-        {
-            for(int i = 0; i < coinLess.Count; i++)
-            {
-                if (coinLess[i] > coin)
-                {
-                    return i;
-                }
-            }
-
-            return coinLess.Count;
-        }
-
-        public override int GetBranchCount() => coinLess.Count + 1;
+        public override bool Decision() => DialogConditionManager.Instance.coin <= coinLess;
     }
 }

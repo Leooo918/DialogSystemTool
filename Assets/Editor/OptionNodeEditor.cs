@@ -1,10 +1,12 @@
+
+#if UNITY_EDITOR
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
-using UnityEditorInternal;
 using UnityEngine;
+using Dialog;
 
-namespace Dialog
+namespace Dialog.Editor
 {
     [CustomEditor(typeof(OptionNodeSO))]
     public class OptionNodeEditor : Editor
@@ -89,3 +91,5 @@ namespace Dialog
         }
     }
 }
+
+#endif

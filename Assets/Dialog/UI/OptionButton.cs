@@ -28,7 +28,6 @@ namespace Dialog
         {
             if (_player == null) return;
 
-            Debug.Log(_txt + " " + _tagAnims.Count);
             _player.PlayAnimation(_txt, _tagAnims);
         }
 

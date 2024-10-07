@@ -9,7 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a04c39a818d8f5a4e97926b8757d99d9, type: 3}
-  m_Name: TESTCOINCONDITION 1
+  m_Script: {fileID: 11500000, guid: d6bddefbca425a84b815caebecc341cf, type: 3}
+  m_Name: TESTVISITCONDITION
   m_EditorClassIdentifier: 
-  coinLess: 080000000b0000000f000000
+  node: {fileID: 8651857697121726848, guid: 6388fc918d92aca44ab8d5f1dd4e167e, type: 2}
+  visitCnt: 2
