@@ -1,4 +1,3 @@
-
 #if UNITY_EDITOR
 using Dialog;
 using UnityEditor;
@@ -65,9 +64,7 @@ namespace Dialog
                     var player = Selection.activeGameObject.GetComponent<DialogPlayer>();
 
                     if (player != null)
-                    {
-                        dialogSO = player.dialog;
-                    }
+                        dialogSO = player.Dialog;
                 }
             }
 

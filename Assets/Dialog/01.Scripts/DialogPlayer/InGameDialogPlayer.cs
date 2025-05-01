@@ -11,80 +11,68 @@ namespace Dialog
     {
         private AnimationPlayer _animPlayer;
 
-        [SerializeField] private RectTransform _optionParent;
-        [SerializeField] private List<IngameCharacterStruct> characters;
-        private IngameCharacterStruct _curCharacter;
+        [SerializeField] private DialogOption _option;
 
-        private TMP_TextInfo _txtInfo;
-        private bool _optionSelected = false;
+        private Actor _currentActor;
+        private OptionNodeSO _optionTalk;
         private NodeSO _nextNode;
-        private List<OptionButton> _optionBtns;
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             _animPlayer = GetComponent<AnimationPlayer>();
         }
 
-        private void Update()
-        {
-            //디버그용
-            if (Input.GetKeyDown(KeyCode.Q))
-            {
-                StartDialog();
-            }
-        }
+        #region Animation
 
         private void LateUpdate()
         {
-            //애니메이션 실행
             if (_curReadingNode is NormalNodeSO node && _isReadingDialog)
             {
-                _animPlayer.PlayAnimation(_curCharacter.contentTxt, node.contentTagAnimations);
+                _animPlayer.PlayAnimation(_currentActor.ContentText, node.contentTagAnimations);
             }
         }
 
-
-        #region DialogRead
-
-        public override void StartDialog()
+        private void InitNodeAnim(NodeSO node)
         {
-            if (_isReadingDialog)
-                Debug.Log("이미 실행중인데~\n허~접 ♥");
+            List<TagAnimation> anims = node.GetAllAnimations();
 
-            _isReadingDialog = true;
-            _curReadingNode = dialog.nodes[0];
-            ReadSingleLine();
-        }
-
-        public override void EndDialog()
-        {
-            characters.ForEach((c) => c.talkBubbleObj.SetActive(false));
-            _isReadingDialog = false;
-        }
-
-        public override void ReadSingleLine()
-        {
-            if (_curReadingNode == null)
+            anims.ForEach((anim) =>
             {
-                EndDialog();
-                return;
-            }
+                anim.Init();
 
-            //해당 노드를 방문했다고 확인해줌
-            DialogConditionManager.Instance.CountVisit(_curReadingNode.guid);
+                if (anim is SpriteAnimation srAnim) srAnim.Init(_currentActor.spriteRenderer);
+                if (anim is StopReadingAnimation stopAnim) stopAnim.Init(this);
+            });
+        }
+
+        private void CompleteNodeAnim(NodeSO node)
+        {
+            List<TagAnimation> anims = node.GetAllAnimations();
+            anims.ForEach((anim) => anim.Complete());
+        }
+
+        #endregion
+
+        #region ReadingRoutines
+
+        protected override IEnumerator ReadingNodeRoutine()
+        {
+            _isReadingDialog = false;
 
             if (_curReadingNode is NormalNodeSO node)
             {
-                characters.ForEach(c =>
-                {
-                    if (c.name == node.GetReaderName())
-                    {
-                        _curCharacter = c;
-                        _curCharacter.talkBubbleObj.SetActive(true);
-                    }
-                });
+                DialogActorManager.Instance.TryGetActor(node.GetReaderName(), out _currentActor);
+            }
 
-                _readingNodeRoutine = StartCoroutine(ReadingNormalNodeRoutine(node));
+            _curReadingNode.startDialogEvent.ForEach(dialogEvent => dialogEvent.PlayEvent(this, _currentActor));
+            yield return new WaitUntil(() => !_curReadingNode.startDialogEvent.Exists(dialogEvent => dialogEvent.isCompleteEvent == false));
+
+            _isReadingDialog = true;
+            if (_curReadingNode is NormalNodeSO normal)
+            {
+                _currentActor?.personalTalkBubble.SetEnabled();
+                _readingNodeRoutine = StartCoroutine(ReadingNormalNodeRoutine(normal));
             }
             else if (_curReadingNode is OptionNodeSO option)
             {
@@ -96,83 +84,40 @@ namespace Dialog
             }
         }
 
-        #endregion
-
-
-        #region ReadingRoutines
-
         private IEnumerator ReadingNormalNodeRoutine(NormalNodeSO node)
         {
-            TextMeshProUGUI tmp = _curCharacter.contentTxt;
+            TextMeshProUGUI tmp = _currentActor.ContentText;
 
             tmp.SetText(node.GetContents());
             tmp.maxVisibleCharacters = 0;
             InitNodeAnim(node);
             _isReadingDialog = true;
-
             while (tmp.maxVisibleCharacters < tmp.text.Length)
             {
-                //공백은 바로 넘겨
                 if (tmp.text[tmp.maxVisibleCharacters++] == ' ') continue;
 
                 yield return new WaitForSeconds(_textOutDelay);
-                //텍스트 출력을 멈춰둘건지
                 yield return new WaitUntil(() => stopReading == false);
             }
-
             _nextNode = node.nextNode;
-            StartCoroutine(WaitNodeRoutine(
-                () => GetInput(),
-                () => _curCharacter.talkBubbleObj.SetActive(false)));
+            StartCoroutine(WaitNodeRoutine(GetInput, _currentActor.OnCompleteNode));
         }
 
 
         private void ReadingOptionNodeRoutine(OptionNodeSO node)
         {
-            _optionSelected = false;
-            _optionBtns = new List<OptionButton>();
-            _optionParent.gameObject.SetActive(true);
             InitNodeAnim(node);
-
-            for (int i = 0; i < node.options.Count; i++)
-            {
-                OptionButton optionButton = Instantiate(node.optionPf, _optionParent);
-                optionButton.SetOption(node.options[i], _animPlayer);
-                optionButton.OnClcickEvent += OnSelectOption;
-
-                _optionBtns.Add(optionButton);
-            }
-
-            StartCoroutine(WaitNodeRoutine(
-                () => _optionSelected,
-                () =>
-                {
-                    _optionParent.gameObject.SetActive(false);
-                    _optionBtns.ForEach(option => Destroy(option.gameObject));
-                    _optionBtns.Clear();
-                }));
+            _option.SetOption(node, OnSelectOption);
+            //StartCoroutine(WaitNodeRoutine(() => _optionSelected, null));
         }
 
-        private void OnSelectOption(NodeSO node)
+        private void OnSelectOption(Option option)
         {
-            _optionSelected = true;
-            _nextNode = node;
-        }
+            _playingEndAnimation = false;
 
-        private IEnumerator WaitNodeRoutine(Func<bool> waitPredict, Action endAction)
-        {
-            yield return new WaitForSeconds(0.1f);
-            yield return new WaitUntil(waitPredict);
-
-            CompleteNodeAnim(_curReadingNode);
-            _playingEndAnimation = true;
-            yield return new WaitUntil(() => !_playingEndAnimation);
-
-            endAction?.Invoke();
-            _curReadingNode = _nextNode;
-            _isReadingDialog = false;
-
-            yield return new WaitForSeconds(_nextNodeDealy);
+            _optionTalk = _curReadingNode as OptionNodeSO;
+            _curReadingNode = ScriptableObject.CreateInstance<NormalNodeSO>();
+            (_curReadingNode as NormalNodeSO).SetNormalNodeByOption(option);
             ReadSingleLine();
         }
 
@@ -180,41 +125,45 @@ namespace Dialog
         {
             bool decision = branch.condition.Decision();
             _curReadingNode = branch.nextNodes[decision ? 0 : 1];
+            _playingEndAnimation = false;
+            ReadSingleLine();
+        }
+
+        private IEnumerator WaitNodeRoutine(Func<bool> waitPredict, Action endAction)
+        {
+            yield return new WaitForSeconds(0.1f);
+            yield return new WaitUntil(waitPredict);
+
+            if (_curReadingNode is NormalNodeSO)
+            {
+                _playingEndAnimation = true;
+                CompleteNodeAnim(_curReadingNode);
+            }
+            else
+            {
+                _playingEndAnimation = false;
+            }
+
+            yield return new WaitUntil(() => !_playingEndAnimation);
+
+            _curReadingNode.endDialogEvent.ForEach(dialogEvent => dialogEvent.PlayEvent(this, _currentActor));
+            yield return new WaitUntil(() => !_curReadingNode.endDialogEvent.Exists(dialogEvent => dialogEvent.isCompleteEvent == false));
+
+            endAction?.Invoke();
+            _curReadingNode = _nextNode;
+            _isReadingDialog = false;
+
+            if(_optionTalk)
+            {
+                _option.Close();
+                _optionTalk = null;
+            }
+
+            yield return new WaitForSeconds(_nextNodeDelay);
+            stopReading = false;
             ReadSingleLine();
         }
 
         #endregion
-
-
-        private void InitNodeAnim(NodeSO node)
-        {
-            List<TagAnimation> anims = node.GetAllAnimations();
-
-            anims.ForEach((anim) =>
-            {
-                anim.Init();
-
-                if (anim is SpriteAnimation srAnim)
-                    srAnim.Init(_curCharacter.spriteRenderer);
-
-                if (anim is StopReadingAnimation stopAnim)
-                    stopAnim.Init(this);
-            });
-        }
-
-        private void CompleteNodeAnim(NodeSO node)
-        {
-            List<TagAnimation> anims = node.GetAllAnimations();
-            anims.ForEach((anim) => anim.Complete());
-        }
-    }
-
-    [Serializable]
-    public struct IngameCharacterStruct
-    {
-        public string name;
-        public GameObject talkBubbleObj;
-        public TextMeshProUGUI contentTxt;
-        public SpriteRenderer spriteRenderer;
     }
 }
