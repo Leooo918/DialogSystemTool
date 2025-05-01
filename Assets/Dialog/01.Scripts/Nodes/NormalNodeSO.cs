@@ -10,6 +10,7 @@ namespace Dialog
         [SerializeField] protected string reader;
         [TextArea(5,20)]
         [SerializeField] protected string contents;
+        public float nodeDelay;
 
         protected string tagExceptedReader;
         protected string tagExceptedContents;
@@ -17,6 +18,22 @@ namespace Dialog
         [HideInInspector] public List<TagAnimation> readerTagAnimations = new();
         [HideInInspector] public List<TagAnimation> contentTagAnimations = new();
         [HideInInspector] public NodeSO nextNode;
+
+        public void SetNormalNodeByOption(Option option)
+        {
+            guid = "";
+            reader = "Player";
+            contents = option.option;
+            nextNode = option.nextNode;
+            
+            startDialogEventSO = option.startDialogEventSO;
+            startDialogEvent = option.startDialogEvent;
+            
+            endDialogEventSO = option.endDialogEventSO;
+            endDialogEvent = option.endDialogEvent;
+            
+            OnEnable();
+        }
 
         public string GetContents() => tagExceptedContents;
         public string GetReaderName() => tagExceptedReader;
@@ -49,15 +66,6 @@ namespace Dialog
                     Debug.LogError(tagExceptedReader);
             });
         }
-    }
-
-    [Serializable]
-    public class ImageStruct
-    {
-        public Sprite image;
-
-        public Vector2 position;
-        public Vector2 size;
     }
 }
 

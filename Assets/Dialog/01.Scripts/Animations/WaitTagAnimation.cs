@@ -20,8 +20,10 @@ namespace Dialog
 
         public override void Play()
         {
+            base.Play();
             var charInfo = _txtInfo.characterInfo[animStartPos - 1];
 
+            Debug.Log(animStartFlag);
             if(charInfo.isVisible && animStartFlag)
             {
                 animStartFlag = false;
@@ -35,9 +37,14 @@ namespace Dialog
             }
         }
 
+        public override void Init()
+        {
+            base.Init();
+            animStartFlag = true;
+        }
+
         public override void Complete()
         {
-
         }
 
         public override bool SetParameter()
@@ -49,13 +56,6 @@ namespace Dialog
                 return false;
             }
             return true;
-        }
-
-        private IEnumerator Delay()
-        {
-            int delay = int.Parse(Param);
-            yield return new WaitForSeconds(delay);
-
         }
     }
 }
